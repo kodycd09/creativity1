@@ -1,0 +1,20 @@
+.col-sm-2 {
+    text-align: center;
+}
+.col-sm-8 {
+    text-align: center;
+}
+#title {
+    text-align: center;
+    background-color: rgb(80,80,80);
+    color: white;
+}
+#sunrise {
+    color:black;
+}
+#sunset {
+    color:black;
+}
+#sunheader {
+    color: rgb(220,80,70);
+}
