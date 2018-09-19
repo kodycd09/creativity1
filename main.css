@@ -18,3 +18,8 @@
 #sunheader {
     color: rgb(220,80,70);
 }
+#sun {
+    position: relative;
+    width: 200px;
+    height: 200px;
+}
