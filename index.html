@@ -48,6 +48,7 @@ new_sunset.toLocaleTimeString();
              updateTime();
              };
              xhr.send();
+             setTimeout(getSunriseSunset(), 3600000);
          }
          //Separate function to update time so we don't make a million API calls as we update the curren time.
          function updateTime() {
