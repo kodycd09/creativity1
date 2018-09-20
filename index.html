@@ -27,7 +27,8 @@
              var sunrise = obj.results.sunrise.split(":");
              var sunrise_second = sunrise[2].split(" ");
              var sunrise_seconds = sunrise_second[0];
-             var new_sunrise = new Date(2000,12,12, sunrise[0],sunrise[1], sunrise_seconds, 0);
+             var new_sunrise = new Date(2000,12,12, sunrise[0], 
+sunrise[1], sunrise_seconds, 0);
              new_sunrise.setHours(new_sunrise.getHours() + 6);
              //Builds sunset date object and changes time
              var sunset = obj.results.sunset.split(":");
@@ -47,9 +48,7 @@ new_sunset.toLocaleTimeString();
              updateTime();
              };
              xhr.send();
-            // setTimeout(getSunriseSunset(), 3600000);
          }
-         //Separate function to update time so we don't make a million API calls as we update the curren time.
          function updateTime() {
             var d = new Date();
             document.getElementById("currentTime").innerHTML = d.toLocaleTimeString() +",  "+ d.toLocaleDateString();
@@ -61,7 +60,6 @@ new_sunset.toLocaleTimeString();
              if(d.getHours() >= sunrise.getHours() && d.getHours() <= sunset.getHours()){
                  document.getElementById("sun").src="sun.png";
                 pos = d.getHours() - sunrise.getHours();
-                alert(pos)
              }else{
                  document.getElementById("sun").src="moon.png";
                  if(d.getHours() > sunset.getHours()){
@@ -120,7 +118,7 @@ new_sunset.toLocaleTimeString();
         </div>
         <div class = row></div>
         <div class="col-sm-12">
-            <img id="sun">
+            <img id="sun" src="sun.png">
         </div>
     </div>
     
