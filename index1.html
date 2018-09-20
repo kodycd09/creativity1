@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Kody and Brandon Project</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <Link rel="stylesheet" type="text/css" href="main.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+
+<body>
+     <script>
+        window.onload = function() {
+            getSunriseSunset();
+        };
+         function getSunriseSunset() {
+             var xhr = new XMLHttpRequest();
+             xhr.open("GET", 
+"https://api.sunrise-sunset.org/json?lat=40.251843&lng=-111.649316&date=today");
+             xhr.onload = function(){
+             console.log(xhr.responseText);
+             var server_info = (xhr.responseText);
+             var obj = JSON.parse(server_info);
+             //Builds sunrise date object and changes time
+             var sunrise = obj.results.sunrise.split(":");
+             var sunrise_second = sunrise[2].split(" ");
+             var sunrise_seconds = sunrise_second[0];
+             var new_sunrise = new Date(2000,12,12, sunrise[0], 
+sunrise[1], sunrise_seconds, 0);
+             new_sunrise.setHours(new_sunrise.getHours() + 6);
+             //Builds sunset date object and changes time
+             var sunset = obj.results.sunset.split(":");
+             var sunset_second = sunset[2].split(" ");
+             var sunset_seconds = sunset_second[0];
+             var new_sunset = new Date(2000,12,12, sunset[0], sunset[1], 
+sunset_seconds, 0);
+             new_sunset.setHours(new_sunset.getHours() - 6);
+             
+             //Display updated times
+             document.getElementById("sunrise").innerHTML = 
+new_sunrise.toLocaleTimeString();
+             document.getElementById("sunset").innerHTML = 
+new_sunset.toLocaleTimeString();
+             // we are -6 hours from the response time
+             moveSun(new_sunrise, new_sunset);
+             updateTime();
+             };
+             xhr.send();
+             setTimeout(getSunriseSunset(), 3600000);
+         }
+         //Separate function to update time so we don't make a million API calls as we update the curren time.
+         function updateTime() {
+            var d = new Date();
+            document.getElementById("currentTime").innerHTML = d.toLocaleTimeString() +",  "+ d.toLocaleDateString();
+            setTimeout(updateTime, 1000);
+         }
+         function moveSun(sunrise, sunset) {
+             var d = new Date();
+             var pos;
+             if(d.getHours() >= sunrise.getHours() && d.getHours() <= sunset.getHours()){
+                 document.getElementById("sun").src="sun.png";
+                pos = d.getHours() - sunrise.getHours();
+                alert(pos)
+             }else{
+                 document.getElementById("sun").src="moon.png";
+                 if(d.getHours() > sunset.getHours()){
+                     pos = d.getHours() - 20;
+                 }else{
+                     pos = d.getHours() + sunrise.getHours();
+                 }
+             }
+             var string_pos;
+             if(pos == 0){
+                 string_pos = "0%";
+             }else if(pos == 1){
+                   string_pos = "7%"
+             }else if(pos == 2){
+                   string_pos = "14%"
+             }else if(pos == 3){
+                   string_pos = "21%"
+             }else if(pos == 4){
+                   string_pos = "28%"
+             }else if(pos ==5){
+                   string_pos = "35%"
+             }else if(pos == 6){
+                   string_pos = "42%"
+             }else if(pos == 7){
+                   string_pos = "49%"
+             }else if(pos == 8){
+                   string_pos = "56%"
+             }else if(pos == 9){
+                   string_pos = "63%"
+             }else if(pos ==9){
+                   string_pos = "70%"
+             }else if(pos == 10){
+                   string_pos = "77%"
+             }else if(pos == 11)
+             {
+                   string_pos = "84%"
+             }else if(string_pos == 12){
+                 string_pos = "91%"
+             }
+             document.getElementById("sun").style.left = string_pos;
+         }
+     </script> 
+        
+    <div class="container-fluid">
+        <div class="row" id="title"><h1>Sunrise and Sunset for BYU</h1></div>
+        <div class="row">
+          <div class="col-sm-2" style="text-align:center"><h2 id="sunHeader">Sunrise</h2>
+              <br><p id="sunrise"></p>
+          </div>
+          <div class="col-sm-8" style="text-align:center"><h2>Current Time</h2>
+              <br><p id="currentTime"></p>
+          </div>
+          <div class="col-sm-2" style="text-align:center"><h2 id="sunHeader">Sunset</h2>
+              <br><p id="sunset"></p>
+          </div>
+        </div>
+        <div class = row></div>
+        <div class="col-sm-12">
+            <img id="sun">
+        </div>
+    </div>
+    
+
+</body>
+</html>
+</body>
+</html>
