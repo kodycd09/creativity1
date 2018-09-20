@@ -60,10 +60,11 @@ new_sunset.toLocaleTimeString();
              var d = new Date();
              var pos;
              if(d.getHours() >= sunrise.getHours() && d.getHours() <= sunset.getHours()){
-                 document.getElementById("sun").src="sun.png";
-                pos = d.getHours() - sunrise.getHours();
-             }else{
                  document.getElementById("sun").src="moon.png";
+                pos = d.getHours() - sunrise.getHours();
+                alert(pos)
+             }else{
+                 document.getElementById("sun").src="sun.png";
                  if(d.getHours() > sunset.getHours()){
                      pos = d.getHours() - 20;
                  }else{
@@ -120,7 +121,7 @@ new_sunset.toLocaleTimeString();
         </div>
         <div class = row></div>
         <div class="col-sm-12">
-            <img id="sun" src="sun.png">
+            <img id="sun">
         </div>
     </div>
     
